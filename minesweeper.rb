@@ -150,28 +150,25 @@ class Game
 
   def play
     board.set_bombs
-    board.print_board
 
     until board.win?
+      board.print_board
       pos = get_position
       action = get_action(pos)
       if action == 'r'
         if board[pos].bomb
           puts "Sorry, you lose."
-          board.over
-          board.print_board
-          return
+          break
         else
           board[pos].reveal
         end
       else
         board[pos].flagged = !board[pos].flagged
       end
-
-      board.print_board
     end
 
-    puts "Congrats, you win!"
+    puts "Congrats, you won!" if board.win?
+    board.over
     board.print_board
   end
 
@@ -185,7 +182,7 @@ class Game
     puts "Which column would you like?"
     pos << Integer(gets.chomp)
 
-    raise "Invalid position" if self.board[pos].revealed
+    raise "Invalid position." if self.board[pos].revealed
 
     pos
   end
