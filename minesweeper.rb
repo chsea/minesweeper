@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Board
   SIZE = 9
 
